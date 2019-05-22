@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.a4d82059.chunk.css",
-    "main.js": "/static/js/main.5ef4293b.chunk.js",
-    "main.js.map": "/static/js/main.5ef4293b.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/css/2.e7c12b49.chunk.css": "/static/css/2.e7c12b49.chunk.css",
-    "static/js/2.d5dfa1b0.chunk.js": "/static/js/2.d5dfa1b0.chunk.js",
-    "static/js/2.d5dfa1b0.chunk.js.map": "/static/js/2.d5dfa1b0.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.c50b4e90bea502b142ab49f3227cd02f.js": "/precache-manifest.c50b4e90bea502b142ab49f3227cd02f.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.e7c12b49.chunk.css.map": "/static/css/2.e7c12b49.chunk.css.map",
-    "static/css/main.a4d82059.chunk.css.map": "/static/css/main.a4d82059.chunk.css.map",
-    "static/media/Home.css": "/static/media/NexaLight.12108809.otf"
+    "main.css": "/ucc-textbook-exchange/static/css/main.f4dde178.chunk.css",
+    "main.js": "/ucc-textbook-exchange/static/js/main.d7a690c9.chunk.js",
+    "main.js.map": "/ucc-textbook-exchange/static/js/main.d7a690c9.chunk.js.map",
+    "runtime~main.js": "/ucc-textbook-exchange/static/js/runtime~main.28a2f776.js",
+    "runtime~main.js.map": "/ucc-textbook-exchange/static/js/runtime~main.28a2f776.js.map",
+    "static/css/2.e7c12b49.chunk.css": "/ucc-textbook-exchange/static/css/2.e7c12b49.chunk.css",
+    "static/js/2.9221dc6a.chunk.js": "/ucc-textbook-exchange/static/js/2.9221dc6a.chunk.js",
+    "static/js/2.9221dc6a.chunk.js.map": "/ucc-textbook-exchange/static/js/2.9221dc6a.chunk.js.map",
+    "index.html": "/ucc-textbook-exchange/index.html",
+    "precache-manifest.5ef745c6436f290d91625ad369ecac04.js": "/ucc-textbook-exchange/precache-manifest.5ef745c6436f290d91625ad369ecac04.js",
+    "service-worker.js": "/ucc-textbook-exchange/service-worker.js",
+    "static/css/2.e7c12b49.chunk.css.map": "/ucc-textbook-exchange/static/css/2.e7c12b49.chunk.css.map",
+    "static/css/main.f4dde178.chunk.css.map": "/ucc-textbook-exchange/static/css/main.f4dde178.chunk.css.map",
+    "static/media/Home.css": "/ucc-textbook-exchange/static/media/NexaLight.12108809.otf"
   }
 }
