@@ -1,0 +1,30 @@
+form#messageInputForm {
+	display: flex;
+	flex-direction: row;
+	border: 1px solid grey;
+	/* border-radius: 10px; */
+	/* padding: 2px; */
+	width: 80%;
+	margin: auto;
+	margin-top: 5vh;
+}
+
+input#messageInput {
+	/* Tell the input to use all the available space */
+	flex-grow: 2;
+	/* And hide the input's outline, so the form looks like the outline */
+	border: none;
+	border-radius: 0px;
+	padding-left: 10px;
+}
+
+input#messageInput:focus {
+	outline: none;
+}
+
+button#messageInputButton {
+	/* width: 100% */
+	/* height: 100px; */
+	margin: 0;
+	border-radius: 0px;
+}

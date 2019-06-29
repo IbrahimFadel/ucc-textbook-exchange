@@ -1,0 +1,63 @@
+#details-container {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+div#details-container p {
+  margin-bottom: 0;
+}
+
+div#messageDiv {
+  margin-top: 10vh;
+}
+
+#messages {
+  border: 3px coral solid;
+  width: 90%;
+  margin: auto;
+  margin-top: 5vh;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+div.true {
+  float: right;
+  background-color: #549cff;
+  border-radius: 10px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  color: white;
+  max-width: 45%;
+  overflow-wrap: break-word;
+  margin-right: 3vw;
+}
+
+div.false {
+  float: left;
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  color: black;
+  max-width: 45%;
+  overflow-wrap: break-word;
+  margin-left: 3vw;
+}
+
+h2#details-signIn {
+  margin-top: 5vh;
+}
+
+h5#emptyText {
+  margin-top: 5vh;
+  font-family: NexaBold;
+}

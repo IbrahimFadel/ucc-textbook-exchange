@@ -1,0 +1,16 @@
+div#listingCardContainer {
+  text-align: center;
+  width: 90%;
+  margin: auto;
+}
+
+h1#listingsTitle {
+  text-align: center;
+  margin-top: 5vh;
+}
+
+@media only screen and (max-width: 800px) {
+  .card {
+    width: 100%;
+  }
+}
