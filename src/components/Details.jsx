@@ -143,8 +143,16 @@ export default class Details extends Component {
           <Navbar />
           <div id="details-container">
             <h1>{data.title}</h1>
-            <p>{data.grade}</p>
+            {/* <p>{data.grade}</p> */}
             <h5>{data.description}</h5>
+
+            {data.imageUrl != undefined ? (
+              <div>
+                <img src={data.imageUrl} />
+              </div>
+            ) : (
+              <div />
+            )}
 
             {this.state.user ? (
               <div>
@@ -152,7 +160,7 @@ export default class Details extends Component {
                   <div>
                     {this.state.senders != null ? (
                       <div>
-                        <h3>Conversations</h3>
+                        <h3 style={{ marginTop: "5vh" }}>Conversations</h3>
                         <select id="convoSelect" onChange={this.convoChanged}>
                           {this.state.senders.map((sender, i) => {
                             return (

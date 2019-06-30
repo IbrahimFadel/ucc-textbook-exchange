@@ -1,71 +1,76 @@
 *:focus {
-    outline: none;
+  outline: none;
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: #000000 !important;
-    color: black;
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #000000 !important;
+  color: black;
 }
 
 input {
-    border: 1px solid black;
-    border-radius: 3px;
+  border: 1px solid black;
+  border-radius: 3px;
 }
 
 h1#sell-title {
-    text-align: center;
-    font-size: 3rem;
-    margin-top: 5vh;
+  text-align: center;
+  font-size: 3rem;
+  margin-top: 5vh;
 }
 
 form#sell-form {
-    width: 30%;
-    margin: auto;
-    margin-top: 5vh;
-    text-align: center;
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 10px;
+  width: 30%;
+  margin: auto;
+  margin-top: 5vh;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 10px;
 }
 
 label.sell-label {
-    display: inline-block;
-    margin-bottom: 2vh;
-    margin-top: 2vh;
+  display: inline-block;
+  margin-bottom: 2vh;
+  margin-top: 2vh;
 }
 
 input#sell-textbookName {
-    width: 60%;
+  width: 60%;
 }
 
 select#sell-grade {
-    width: 60%;
-    border: 1px solid black;
-    height: 4vh;
+  width: 60%;
+  border: 1px solid black;
+  height: 4vh;
 }
 
 textarea#sell-description {
-    width: 60%;
-    border-radius: 3px;
-    resize: none;
-    padding: 5px;
-    height: 10vh;
-    font-size: 0.8em;
+  width: 60%;
+  border-radius: 3px;
+  resize: none;
+  padding: 5px;
+  height: 10vh;
+  font-size: 0.8em;
 }
 
 button#sell-button {
-    margin: auto;
-    margin-top: 3vh;
-    margin-bottom: 2vh;
-    width: 20%;
-    font-size: 0.8em;
+  margin: auto;
+  margin-top: 3vh;
+  margin-bottom: 2vh;
+  width: 20%;
+  font-size: 0.8em;
 }
 
 h1#signInToView-h1 {
-    text-align: center;
-    margin-top: 15vh;
+  text-align: center;
+  margin-top: 15vh;
+}
+
+input#image-input {
+  /* border: none; */
+  width: 90%;
 }

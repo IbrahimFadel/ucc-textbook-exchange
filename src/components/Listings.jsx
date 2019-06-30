@@ -41,8 +41,17 @@ export default class Listings extends Component {
           const email = childsnapshot.val().email;
           const uid = childsnapshot.val().uid;
           const listingKey = Object.keys(snapshot.val())[count];
+          const imageName = childsnapshot.val().imageName;
 
-          const listing = [title, grade, desc, email, uid, listingKey];
+          const listing = {
+            title: title,
+            grade: grade,
+            desc: desc,
+            email: email,
+            uid: uid,
+            listingKey: listingKey,
+            imageName: imageName
+          };
           listings.push(listing);
           count++;
           if (count === numChildren) {
@@ -65,9 +74,29 @@ export default class Listings extends Component {
         <div>
           {listings.length > 0 ? (
             <div>
-              {data.grade === "Diploma Program" ? (
+              <Navbar />
+              {data.grade === "diplomaprogram" ? (
                 <div>
-                  <h1>Diploma Program Listings</h1>
+                  <h1 style={{ textAlign: "center" }}>
+                    Diploma Program Listings
+                  </h1>
+
+                  <div id="listingCardContainer">
+                    {listings.map((data, i) => {
+                      return (
+                        <Card
+                          key={i}
+                          title={data.title}
+                          grade={data.grade}
+                          description={data.desc}
+                          uid={data.uid}
+                          listingKey={data.listingKey}
+                          imageName={data.imageName}
+                          className="card"
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
               ) : (
                 <div>
@@ -78,11 +107,12 @@ export default class Listings extends Component {
                       return (
                         <Card
                           key={i}
-                          title={data[0]}
-                          grade={data[1]}
-                          description={data[2]}
-                          uid={data[4]}
-                          listingKey={data[5]}
+                          title={data.title}
+                          grade={data.grade}
+                          description={data.desc}
+                          uid={data.uid}
+                          listingKey={data.listingKey}
+                          imageName={data.imageName}
                           className="card"
                         />
                       );
