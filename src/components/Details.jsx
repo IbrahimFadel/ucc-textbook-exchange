@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import { auth } from "./firebase/firebase";
+import Swal from "sweetalert2";
 
 import Navbar from "./Navbar";
 import MessageInput from "./MessageInput";
@@ -23,14 +24,14 @@ export default class Details extends Component {
       response: false,
       messages: null,
       senders: null,
-      currentConvo: null
+      currentConvo: null,
+      sellForm: false
     };
   }
 
   componentDidMount() {
     data = this.props.location.state;
     this.getSenders();
-    // this.getCurrentConvo(true);
 
     auth.onAuthStateChanged(user => {
       if (user) {
@@ -136,6 +137,57 @@ export default class Details extends Component {
     });
   };
 
+  sellPrompt = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once you sell, this listing will be removed from the website!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, sell it!"
+    }).then(result => {
+      if (result.value) {
+        this.sell();
+        Swal.fire("Sold!", "Your book has been successfully sold!", "success");
+      }
+    });
+  };
+
+  sell = () => {
+    let count = 0;
+    const path = "/listings/" + data.grade.replace(" ", "").toLowerCase();
+    console.log(path);
+    firebase
+      .database()
+      .ref(path)
+      .once("value")
+      .then(snapshot => {
+        snapshot.forEach((childsnapshot, i) => {
+          if (
+            childsnapshot.val().uid === this.state.uid &&
+            childsnapshot.val().title === data.title &&
+            childsnapshot.val().description === data.description
+          ) {
+            const listingKey = Object.keys(snapshot.val())[count];
+            firebase
+              .database()
+              .ref(path + "/" + listingKey)
+              .set({
+                sold: true,
+                title: childsnapshot.val().title,
+                description: childsnapshot.val().description,
+                email: childsnapshot.val().email,
+                grade: childsnapshot.val().grade,
+                uid: childsnapshot.val().uid,
+                imageName: data.imageUrl
+              });
+          }
+          count++;
+        });
+      });
+  };
+
   render() {
     if (this.state.response) {
       return (
@@ -182,12 +234,12 @@ export default class Details extends Component {
                             if (message.otherUid === this.state.currentConvo) {
                               return (
                                 <div>
-                                  <div
+                                  <p
                                     key={i}
                                     className={message.sent.toString()}
                                   >
                                     {message.message}
-                                  </div>
+                                  </p>
                                   <br />
                                   <br />
                                 </div>
@@ -205,6 +257,45 @@ export default class Details extends Component {
                     ) : (
                       <div>No messages!</div>
                     )}
+
+                    <button
+                      className="button button-outline dark"
+                      style={{ margin: "auto", marginTop: "5vh" }}
+                      onClick={() =>
+                        this.setState({ sellForm: !this.state.sellForm })
+                      }
+                    >
+                      Sell Textbook
+                    </button>
+
+                    {this.state.sellForm ? (
+                      <div>
+                        <form id="sellForm">
+                          <label>Who do you want to sell to?</label>
+                          <br />
+                          <select>
+                            {this.state.senders.map((sender, i) => {
+                              return (
+                                <option key={i} value={sender}>
+                                  {sender}
+                                </option>
+                              );
+                            })}
+                          </select>
+                          <br />
+                          <button
+                            className="button light"
+                            style={{ margin: "auto", marginTop: "3vh" }}
+                            onClick={this.sellPrompt}
+                            type="button"
+                          >
+                            Sell
+                          </button>
+                        </form>
+                      </div>
+                    ) : (
+                      <div />
+                    )}
                   </div>
                 ) : (
                   <div>
@@ -219,12 +310,12 @@ export default class Details extends Component {
                             ) {
                               return (
                                 <div>
-                                  <div
+                                  <p
                                     key={i}
                                     className={message.sent.toString()}
                                   >
                                     {message.message}
-                                  </div>
+                                  </p>
                                   <br />
                                   <br />
                                 </div>

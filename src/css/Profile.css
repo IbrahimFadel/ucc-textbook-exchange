@@ -1,0 +1,29 @@
+h1#profile-title {
+  text-align: center;
+  margin-top: 5vh;
+}
+
+div#profile-container {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  margin-top: 10vh;
+}
+
+button.tab-button {
+  border-radius: 5px;
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+  padding: 2px 5px 2px 5px;
+  margin-bottom: 3vh;
+}
+
+.selected {
+  border: 1px red solid;
+}
+
+table#sales-table {
+  width: 50%;
+  margin: auto;
+  font-family: NexaLight;
+}

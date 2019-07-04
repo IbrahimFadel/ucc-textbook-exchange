@@ -7,14 +7,16 @@ import Signup from "./components/Signup";
 import Sell from "./components/Sell";
 import Listings from "./components/Listings";
 import Details from "./components/Details";
+import Profile from "./components/Profile";
 
 export const routing = (
-	<Router>
-		<Route exact path="/" component={Home} />
-		<Route path="/login" component={Login} />
-		<Route path="/signup" component={Signup} />
-		<Route path="/sell" component={Sell} />
-		<Route path="/grade/:handle" component={Listings} />
-		<Route path="/details/:handle" component={Details} />
-	</Router>
+  <Router>
+    <Route exact path="/" component={Home} />
+    <Route path="/login" component={Login} />
+    <Route path="/signup" component={Signup} />
+    <Route path="/sell" component={Sell} />
+    <Route path="/grade/:handle" component={Listings} />
+    <Route path="/details/:handle" component={Details} />
+    <Route path="/profile" component={Profile} />
+  </Router>
 );

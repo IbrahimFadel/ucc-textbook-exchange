@@ -57,6 +57,7 @@ export default class Sell extends Component {
     listing.description = description;
     listing.email = email;
     listing.uid = uid;
+    listing.sold = false;
 
     if (imageFile != undefined || imageName != undefined) {
       listing.imageName = imageName;

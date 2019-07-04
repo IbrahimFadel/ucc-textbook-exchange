@@ -3,6 +3,7 @@ import firebase from "./firebase/firebase";
 
 import Navbar from "./Navbar";
 import Card from "./Card";
+import SearchBar from "./SearchBar";
 
 import "../css/Listings.css";
 
@@ -16,8 +17,14 @@ export default class Listings extends Component {
     super();
 
     this.state = {
-      response: false
+      response: false,
+      searchBarValue: ""
     };
+  }
+
+  componentDidMount() {
+    data = this.props.location.state;
+    this.getListings(data.grade);
   }
 
   getListings = grade => {
@@ -42,6 +49,7 @@ export default class Listings extends Component {
           const uid = childsnapshot.val().uid;
           const listingKey = Object.keys(snapshot.val())[count];
           const imageName = childsnapshot.val().imageName;
+          const sold = childsnapshot.val().sold;
 
           const listing = {
             title: title,
@@ -50,7 +58,8 @@ export default class Listings extends Component {
             email: email,
             uid: uid,
             listingKey: listingKey,
-            imageName: imageName
+            imageName: imageName,
+            sold: sold
           };
           listings.push(listing);
           count++;
@@ -63,38 +72,64 @@ export default class Listings extends Component {
       });
   };
 
-  componentDidMount() {
-    data = this.props.location.state;
-    this.getListings(data.grade);
-  }
+  onSearchBarChange = e => {
+    const value = document.getElementById("searchbar-input").value;
+    this.setState({
+      searchBarValue: value
+    });
+  };
 
   render() {
     if (this.state.response) {
       return (
         <div>
+          <Navbar />
+
           {listings.length > 0 ? (
             <div>
-              <Navbar />
               {data.grade === "diplomaprogram" ? (
                 <div>
                   <h1 style={{ textAlign: "center" }}>
                     Diploma Program Listings
                   </h1>
 
+                  <SearchBar onChange={this.onSearchBarChange} />
+
                   <div id="listingCardContainer">
                     {listings.map((data, i) => {
-                      return (
-                        <Card
-                          key={i}
-                          title={data.title}
-                          grade={data.grade}
-                          description={data.desc}
-                          uid={data.uid}
-                          listingKey={data.listingKey}
-                          imageName={data.imageName}
-                          className="card"
-                        />
-                      );
+                      if (this.state.searchBarValue != "") {
+                        if (data.title.includes(this.state.searchBarValue)) {
+                          if (!data.sold) {
+                            return (
+                              <Card
+                                key={i}
+                                title={data.title}
+                                grade={data.grade}
+                                description={data.desc}
+                                uid={data.uid}
+                                listingKey={data.listingKey}
+                                imageName={data.imageName}
+                                className="card"
+                              />
+                            );
+                          }
+                        }
+                      } else {
+                        if (!data.sold) {
+                          return (
+                            <Card
+                              key={i}
+                              title={data.title}
+                              grade={data.grade}
+                              description={data.desc}
+                              uid={data.uid}
+                              listingKey={data.listingKey}
+                              imageName={data.imageName}
+                              className="card"
+                            />
+                          );
+                        }
+                      }
                     })}
                   </div>
                 </div>
@@ -102,20 +137,39 @@ export default class Listings extends Component {
                 <div>
                   <h1 id="listingsTitle">Grade {data.grade} Listings</h1>
 
+                  <SearchBar onChange={this.onSearchBarChange} />
+
                   <div id="listingCardContainer">
                     {listings.map((data, i) => {
-                      return (
-                        <Card
-                          key={i}
-                          title={data.title}
-                          grade={data.grade}
-                          description={data.desc}
-                          uid={data.uid}
-                          listingKey={data.listingKey}
-                          imageName={data.imageName}
-                          className="card"
-                        />
-                      );
+                      if (this.state.searchBarValue != "") {
+                        if (data.title.includes(this.state.searchBarValue)) {
+                          return (
+                            <Card
+                              key={i}
+                              title={data.title}
+                              grade={data.grade}
+                              description={data.desc}
+                              uid={data.uid}
+                              listingKey={data.listingKey}
+                              imageName={data.imageName}
+                              className="card"
+                            />
+                          );
+                        }
+                      } else {
+                        return (
+                          <Card
+                            key={i}
+                            title={data.title}
+                            grade={data.grade}
+                            description={data.desc}
+                            uid={data.uid}
+                            listingKey={data.listingKey}
+                            imageName={data.imageName}
+                            className="card"
+                          />
+                        );
+                      }
                     })}
                   </div>
                 </div>
@@ -123,8 +177,6 @@ export default class Listings extends Component {
             </div>
           ) : (
             <div>
-              <Navbar />
-
               {data.grade !== "diplomaprogram" ? (
                 <div>
                   <h1 style={{ textAlign: "center" }}>

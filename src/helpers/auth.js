@@ -1,7 +1,11 @@
 import firebase from "../components/firebase/firebase";
 import Swal from "sweetalert2";
 
-export function createUser(email, password) {
+export function createUser(email, password, name) {
+  if (!email.includes("@ucc.on.ca")) {
+    Swal.fire("Oops...", "You must have a ucc email to signup!", "error");
+    return;
+  }
   let newUser = undefined;
   let ableToCreateUser = true;
   firebase
@@ -15,7 +19,8 @@ export function createUser(email, password) {
       if (ableToCreateUser) {
         newUser = {
           email: email,
-          uid: user.user.uid
+          uid: user.user.uid,
+          name: name
         };
       }
     })

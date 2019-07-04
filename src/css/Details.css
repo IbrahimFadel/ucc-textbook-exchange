@@ -6,6 +6,8 @@
   border: 1px solid black;
   padding-top: 20px;
   padding-bottom: 20px;
+  margin-bottom: 10vh;
+  margin-top: 10vh;
 }
 
 div#details-container p {
@@ -17,7 +19,7 @@ div#messageDiv {
 }
 
 #messages {
-  border: 3px coral solid;
+  border: 2px #908b8b solid;
   width: 90%;
   margin: auto;
   margin-top: 5vh;
@@ -25,7 +27,7 @@ div#messageDiv {
   padding: 10px;
 }
 
-div.true {
+p.true {
   float: right;
   background-color: #549cff;
   border-radius: 10px;
@@ -39,7 +41,7 @@ div.true {
   margin-right: 3vw;
 }
 
-div.false {
+p.false {
   float: left;
   background-color: #e5e5e5;
   border-radius: 10px;
@@ -60,4 +62,8 @@ h2#details-signIn {
 h5#emptyText {
   margin-top: 5vh;
   font-family: NexaBold;
+}
+
+form#sellForm {
+  margin-top: 5vh;
 }
