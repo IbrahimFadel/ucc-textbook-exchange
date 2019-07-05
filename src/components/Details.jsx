@@ -31,6 +31,7 @@ export default class Details extends Component {
 
   componentDidMount() {
     data = this.props.location.state;
+    console.log(data);
     this.getSenders();
 
     auth.onAuthStateChanged(user => {
@@ -157,7 +158,6 @@ export default class Details extends Component {
   sell = () => {
     let count = 0;
     const path = "/listings/" + data.grade.replace(" ", "").toLowerCase();
-    console.log(path);
     firebase
       .database()
       .ref(path)
@@ -170,18 +170,32 @@ export default class Details extends Component {
             childsnapshot.val().description === data.description
           ) {
             const listingKey = Object.keys(snapshot.val())[count];
-            firebase
-              .database()
-              .ref(path + "/" + listingKey)
-              .set({
-                sold: true,
-                title: childsnapshot.val().title,
-                description: childsnapshot.val().description,
-                email: childsnapshot.val().email,
-                grade: childsnapshot.val().grade,
-                uid: childsnapshot.val().uid,
-                imageName: data.imageUrl
-              });
+            if (data.imageUrl === undefined) {
+              firebase
+                .database()
+                .ref(path + "/" + listingKey)
+                .set({
+                  sold: true,
+                  title: childsnapshot.val().title,
+                  description: childsnapshot.val().description,
+                  email: childsnapshot.val().email,
+                  grade: childsnapshot.val().grade,
+                  uid: childsnapshot.val().uid
+                });
+            } else {
+              firebase
+                .database()
+                .ref(path + "/" + listingKey)
+                .set({
+                  sold: true,
+                  title: childsnapshot.val().title,
+                  description: childsnapshot.val().description,
+                  email: childsnapshot.val().email,
+                  grade: childsnapshot.val().grade,
+                  uid: childsnapshot.val().uid,
+                  imageName: data.imageUrl
+                });
+            }
           }
           count++;
         });
@@ -195,7 +209,6 @@ export default class Details extends Component {
           <Navbar />
           <div id="details-container">
             <h1>{data.title}</h1>
-            {/* <p>{data.grade}</p> */}
             <h5>{data.description}</h5>
 
             {data.imageUrl != undefined ? (
@@ -247,12 +260,18 @@ export default class Details extends Component {
                             }
                           })}
                         </div>
-                        <MessageInput
-                          sellerUid={data.sellerUid}
-                          listing={data.listingKey}
-                          seller={true}
-                          receiverUid={this.state.currentConvo}
-                        />
+                        {data.sold === "No" ? (
+                          <div>
+                            <MessageInput
+                              sellerUid={data.sellerUid}
+                              listing={data.listingKey}
+                              seller={true}
+                              receiverUid={this.state.currentConvo}
+                            />
+                          </div>
+                        ) : (
+                          <div />
+                        )}
                       </div>
                     ) : (
                       <div>No messages!</div>
@@ -332,11 +351,17 @@ export default class Details extends Component {
                       </div>
                     )}
 
-                    <MessageInput
-                      sellerUid={data.sellerUid}
-                      listing={data.listingKey}
-                      seller={false}
-                    />
+                    {data.sold === "No" ? (
+                      <div>
+                        <MessageInput
+                          sellerUid={data.sellerUid}
+                          listing={data.listingKey}
+                          seller={false}
+                        />
+                      </div>
+                    ) : (
+                      <div />
+                    )}
                   </div>
                 )}
               </div>

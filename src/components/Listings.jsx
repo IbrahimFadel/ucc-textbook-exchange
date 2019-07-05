@@ -25,6 +25,7 @@ export default class Listings extends Component {
   componentDidMount() {
     data = this.props.location.state;
     this.getListings(data.grade);
+    console.log(data);
   }
 
   getListings = grade => {
@@ -110,6 +111,7 @@ export default class Listings extends Component {
                                 listingKey={data.listingKey}
                                 imageName={data.imageName}
                                 className="card"
+                                sold={data.sold}
                               />
                             );
                           }
@@ -126,6 +128,7 @@ export default class Listings extends Component {
                               listingKey={data.listingKey}
                               imageName={data.imageName}
                               className="card"
+                              sold={data.sold}
                             />
                           );
                         }
@@ -153,6 +156,7 @@ export default class Listings extends Component {
                               listingKey={data.listingKey}
                               imageName={data.imageName}
                               className="card"
+                              sold={data.sold}
                             />
                           );
                         }
@@ -167,6 +171,7 @@ export default class Listings extends Component {
                             listingKey={data.listingKey}
                             imageName={data.imageName}
                             className="card"
+                            sold={data.sold}
                           />
                         );
                       }

@@ -223,7 +223,8 @@ export default class Profile extends Component {
                                           description: descriptions[i],
                                           sellerUid: this.state.uid,
                                           listingKey: listingKeys[i],
-                                          imageUrl: imageNames[i]
+                                          imageUrl: imageNames[i],
+                                          sold: sold[i]
                                         }
                                       }}
                                     >
