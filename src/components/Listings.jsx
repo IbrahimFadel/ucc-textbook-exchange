@@ -100,6 +100,7 @@ export default class Listings extends Component {
                     {listings.map((data, i) => {
                       if (this.state.searchBarValue != "") {
                         if (data.title.includes(this.state.searchBarValue)) {
+                          console.log(data.sold)
                           if (!data.sold) {
                             return (
                               <Card
