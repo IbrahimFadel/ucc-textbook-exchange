@@ -60,7 +60,7 @@ nav ul.nav-links li {
 		position: absolute;
 		right: 0px;
 		height: 92vh;
-		top: 8vh;
+		top: 11vh;
 		background-color: #d9d9d9;
 		display: flex;
 		flex-direction: column;
@@ -87,7 +87,7 @@ nav ul.nav-links li {
 		box-shadow: inset -7px 0px 7px -1px rgba(153, 9, NaN, 1) !important;
 		width: 100% !important;
 		position: fixed !important;
-		top: 80px !important;
+		top: 11vh !important;
 	}
 }
 
