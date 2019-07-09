@@ -31,7 +31,7 @@ export default class Details extends Component {
 
 	componentDidMount() {
 		data = this.props.location.state;
-
+		// console.log(data);
 		auth.onAuthStateChanged(user => {
 			if (user) {
 				this.setState(
@@ -129,7 +129,7 @@ export default class Details extends Component {
 			.then(() => {
 				if (count === amntUsers) {
 					this.setState({
-						currentConvo: senders[0].uid,
+						currentConvo: senders.length > 0 ? senders[0].uid : null,
 						response: true,
 						senders: senders
 					});
