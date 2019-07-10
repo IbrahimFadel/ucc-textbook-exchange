@@ -13,11 +13,25 @@ export default class Navbar extends Component {
 
 		this.state = {
 			user: null,
-			uid: null
+			uid: null,
+			width: null,
+			pictureIncluded: false
 		};
 	}
 
 	componentDidMount() {
+		window.addEventListener("resize", this.resized);
+
+		if (window.innerWidth <= 1000) {
+			this.setState({
+				pictureIncluded: false
+			});
+		} else {
+			this.setState({
+				pictureIncluded: true
+			});
+		}
+
 		auth.onAuthStateChanged(user => {
 			if (user) {
 				this.setState(
@@ -35,6 +49,25 @@ export default class Navbar extends Component {
 			}
 		});
 	}
+
+	resized = () => {
+		this.setState(
+			{
+				width: window.innerWidth
+			},
+			() => {
+				if (this.state.width <= 1000) {
+					this.setState({
+						pictureIncluded: false
+					});
+				} else {
+					this.setState({
+						pictureIncluded: true
+					});
+				}
+			}
+		);
+	};
 
 	burgerClicked() {
 		const links = document.querySelector(".nav-links");
@@ -71,8 +104,17 @@ export default class Navbar extends Component {
 						<li>
 							<Link to="/login">Login/Signup</Link>
 						</li>
+						{this.state.user && !this.state.pictureIncluded ? (
+							<div>
+								<li>
+									<Link to="/profile">Profile</Link>
+								</li>
+							</div>
+						) : (
+							<div />
+						)}
 					</ul>
-					{this.state.user ? (
+					{this.state.user && this.state.pictureIncluded ? (
 						<div id="profile-picture">
 							<div className="dropdown">
 								<img
