@@ -111,6 +111,7 @@ export default class Listings extends Component {
 																imageName={data.imageName}
 																className="card"
 																sold={data.sold}
+																email={data.email}
 															/>
 														);
 													}
@@ -128,6 +129,7 @@ export default class Listings extends Component {
 															imageName={data.imageName}
 															className="card"
 															sold={data.sold}
+															email={data.email}
 														/>
 													);
 												}

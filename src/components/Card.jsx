@@ -72,7 +72,9 @@ export default class Card extends Component {
 										sellerUid: this.props.uid,
 										listingKey: this.props.listingKey,
 										imageUrl: imageUrl,
-										sold: this.props.sold
+										imageName: this.props.imageName,
+										sold: this.props.sold,
+										email: this.props.email
 									}
 								}}
 							>

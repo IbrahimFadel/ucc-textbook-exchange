@@ -37,9 +37,10 @@ export default class Navbar extends Component {
 	}
 
 	burgerClicked() {
-		var links = document.querySelector(".nav-links");
-		console.log(links);
+		const links = document.querySelector(".nav-links");
 		links.classList.toggle("links-active");
+
+		document.querySelector("html").classList.toggle("noScrolling");
 	}
 
 	profileClicked = () => {
@@ -62,10 +63,10 @@ export default class Navbar extends Component {
 							</Link>
 						</li>
 						<li>
-							<Link to="/articles">Articles</Link>
+							<Link to="/sell">Sell</Link>
 						</li>
 						<li>
-							<Link to="/contact">Contact</Link>
+							<Link to="/">Buy</Link>
 						</li>
 						<li>
 							<Link to="/login">Login/Signup</Link>
@@ -73,7 +74,7 @@ export default class Navbar extends Component {
 					</ul>
 					{this.state.user ? (
 						<div id="profile-picture">
-							<div class="dropdown">
+							<div className="dropdown">
 								<img
 									src={
 										"https://api.adorable.io/avatars/" +
@@ -84,7 +85,7 @@ export default class Navbar extends Component {
 									className="dropbtn"
 									onClick={this.profileClicked}
 								/>
-								<div class="dropdown-content">
+								<div className="dropdown-content">
 									<Link to="/profile">Profile</Link>
 								</div>
 							</div>

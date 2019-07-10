@@ -20,10 +20,10 @@ export default class Home extends Component {
 				<Navbar />
 				<h1 id="home-title">UCC Textbook Exchange</h1>
 
-				<p id="home-desc">
+				{/* <p id="home-desc">
 					UCC book exchange helps make the transition in and out of the school
 					year easy! Sell your textbooks, or buy some for the next school year!
-				</p>
+				</p> */}
 
 				<h3 style={{ textAlign: "center", marginTop: "5vh" }}>
 					Selling a book

@@ -1,0 +1,34 @@
+h1#edit-title {
+	margin-top: 5vh;
+	text-align: center;
+}
+
+form#edit-form {
+	background-color: #f2f2f2;
+	width: 70%;
+	margin: auto;
+	text-align: center;
+	margin-top: 5vh;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+button.formButton {
+	margin-left: 2vw;
+	margin-top: 1vh;
+}
+
+#description-textarea {
+	resize: none;
+	width: 30%;
+	border: 1px black solid;
+	border-radius: 5px;
+	padding: 5px;
+	min-height: 100px;
+}
+
+@media only screen and (max-width: 1000px) {
+	#description-textarea {
+		width: 90%;
+	}
+}

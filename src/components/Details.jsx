@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import { auth } from "./firebase/firebase";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 import Navbar from "./Navbar";
 import MessageInput from "./MessageInput";
@@ -31,16 +32,12 @@ export default class Details extends Component {
 
 	componentDidMount() {
 		data = this.props.location.state;
-		// console.log(data);
 		auth.onAuthStateChanged(user => {
 			if (user) {
-				this.setState(
-					{
-						user: user,
-						uid: user.uid
-					},
-					() => {}
-				);
+				this.setState({
+					user: user,
+					uid: user.uid
+				});
 			} else {
 				this.setState({
 					user: null,
@@ -150,6 +147,32 @@ export default class Details extends Component {
 					<Navbar />
 					<div id="details-container">
 						<h1>{data.title}</h1>
+
+						{this.state.uid && this.state.user ? (
+							<div id="options">
+								<Link
+									to={{
+										pathname: "/edit",
+										state: {
+											title: data.title,
+											description: data.description,
+											grade: data.grade,
+											listingKey: data.listingKey,
+											email: data.email,
+											imageName: data.imageName,
+											sold: data.sold,
+											uid: data.sellerUid,
+											email: data.email
+										}
+									}}
+								>
+									Edit
+								</Link>
+							</div>
+						) : (
+							<div />
+						)}
+
 						<h5>{data.description}</h5>
 
 						{data.imageUrl != undefined ? (
