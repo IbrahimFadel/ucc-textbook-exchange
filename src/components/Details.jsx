@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import { auth } from "./firebase/firebase";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import Navbar from "./Navbar";
 import MessageInput from "./MessageInput";
@@ -118,7 +118,10 @@ export default class Details extends Component {
 				snapshot.forEach(childsnapshot => {
 					const user = childsnapshot.val();
 					if (uids.includes(user.uid)) {
-						senders.push({ name: user.name, uid: user.uid });
+						senders.push({
+							name: user.name,
+							uid: user.uid
+						});
 					}
 					count++;
 				});
@@ -137,6 +140,40 @@ export default class Details extends Component {
 	conversationChanged = () => {
 		this.setState({
 			currentConvo: document.getElementById("conversation-select").value
+		});
+	};
+
+	delete = () => {
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!"
+		}).then(result => {
+			if (result.value) {
+				const gradeName =
+					data.grade === "Diploma Program" ? "diplomaprogram" : data.grade;
+				const path = `/listings/${gradeName}/${data.listingKey}/`;
+				firebase
+					.database()
+					.ref(path)
+					.remove()
+					.catch(err => {
+						alert(err.code, err.message);
+					})
+					.then(() => {
+						Swal.fire(
+							"Deleted!",
+							"Your listing has been deleted.",
+							"success"
+						).then(() => {
+							this.props.history.push(`/`);
+						});
+					});
+			}
 		});
 	};
 
@@ -165,9 +202,13 @@ export default class Details extends Component {
 											email: data.email
 										}
 									}}
+									className="option-link"
 								>
 									Edit
 								</Link>
+								<a onClick={this.delete} className="option-link">
+									Delete
+								</a>
 							</div>
 						) : (
 							<div />
@@ -190,7 +231,13 @@ export default class Details extends Component {
 									<div>
 										{this.state.senders.length > 0 ? (
 											<div>
-												<h3 style={{ marginTop: "5vh" }}>Conversations</h3>
+												<h3
+													style={{
+														marginTop: "5vh"
+													}}
+												>
+													Conversations
+												</h3>
 												<select
 													id="conversation-select"
 													onChange={this.conversationChanged}

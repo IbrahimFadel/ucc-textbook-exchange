@@ -11,7 +11,9 @@ var descriptions = [];
 var grades = [];
 var sold = [];
 var listingKeys = [];
+var imageUrls = [];
 var imageNames = [];
+var emails = [];
 
 export default class Profile extends Component {
   constructor() {
@@ -98,15 +100,17 @@ export default class Profile extends Component {
           descriptions.push(sale.description);
           grades.push(sale.grade);
           sold.push(sale.sold ? "Yes" : "No");
+          imageNames.push(sale.imageName);
+          emails.push(sale.email);
           if (sale.imageName === undefined) {
-            imageNames.push(undefined);
+            imageUrls.push(undefined);
           } else {
             canContinue = false;
             storageRef
               .child(imagePath)
               .getDownloadURL()
               .then(downloadURL => {
-                imageNames.push(downloadURL);
+                imageUrls.push(downloadURL);
                 canContinue = true;
               });
           }
@@ -223,10 +227,12 @@ export default class Profile extends Component {
                                           description: descriptions[i],
                                           sellerUid: this.state.uid,
                                           listingKey: listingKeys[i],
-                                          imageUrl: imageNames[i],
-                                          sold: sold[i]
+                                          imageUrl: imageUrls[i],
+                                          imageName: imageNames[i],
+                                          sold: sold[i],
+                                          email: emails[i]
                                         }
-                                      }}
+                                      }} 
                                     >
                                       <button type="button">View</button>
                                     </Link>

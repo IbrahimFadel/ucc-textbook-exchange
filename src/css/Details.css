@@ -73,3 +73,19 @@ div#options {
 	right: 13vw;
 	top: 25vh;
 }
+
+a.option-link {
+	margin-left: 1vw;
+	color: blue;
+}
+
+a:not([href]):not([tabindex]) {
+	color: blue;
+}
+
+a:not([href]):not([tabindex]):hover,
+a:not([href]):not([tabindex]):focus {
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}

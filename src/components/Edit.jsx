@@ -11,7 +11,7 @@ var data = undefined;
 
 var ogTitle;
 var ogDescription;
-var ogGrade;
+// var ogGrade;
 
 export default class Edit extends Component {
 	constructor() {
@@ -20,8 +20,8 @@ export default class Edit extends Component {
 		this.state = {
 			response: false,
 			title: undefined,
-			description: undefined,
-			grade: undefined
+			description: undefined
+			// grade: undefined
 		};
 	}
 
@@ -29,11 +29,11 @@ export default class Edit extends Component {
 		data = this.props.location.state;
 		ogTitle = data.title;
 		ogDescription = data.description;
-		ogGrade = data.grade;
+		// ogGrade = data.grade;
 		this.setState({
 			title: ogTitle,
 			description: ogDescription,
-			grade: ogGrade,
+			// grade: ogGrade,
 			response: true
 		});
 	}
@@ -48,10 +48,10 @@ export default class Edit extends Component {
 				this.setState({
 					description: document.getElementById("description-textarea").value
 				});
-			case "grade":
-				this.setState({
-					grade: document.getElementById("grade-select").value
-				});
+			// case "grade":
+			// 	this.setState({
+			// 		grade: document.getElementById("grade-select").value
+			// 	});
 		}
 	};
 
@@ -67,11 +67,11 @@ export default class Edit extends Component {
 				this.setState({
 					description: ogDescription
 				});
-			case "grade":
-				document.getElementById("grade-select").value = ogGrade;
-				this.setState({
-					grade: ogGrade
-				});
+			// case "grade":
+			// 	document.getElementById("grade-select").value = ogGrade;
+			// 	this.setState({
+			// 		grade: ogGrade
+			// 	});
 		}
 	};
 
@@ -83,7 +83,7 @@ export default class Edit extends Component {
 		const description =
 			field === "description" ? this.state.description : ogDescription;
 		const title = field === "title" ? this.state.title : ogTitle;
-		const grade = field === "grade" ? this.state.grade : ogGrade;
+		// const grade = field === "grade" ? this.state.grade : ogGrade;
 
 		firebase
 			.database()
@@ -91,7 +91,8 @@ export default class Edit extends Component {
 			.set({
 				description: description,
 				email: data.email,
-				grade: grade,
+				grade: data.grade,
+				// grade: grade,
 				imageName: data.imageName,
 				sold: data.sold,
 				title: title,
@@ -127,20 +128,20 @@ export default class Edit extends Component {
 								);
 							}
 						);
-					case "grade":
-						ogGrade = this.state.grade;
-						this.setState(
-							{
-								grade: ogGrade
-							},
-							() => {
-								Swal.fire(
-									"Success!",
-									"Your grade has been changed!",
-									"success"
-								);
-							}
-						);
+					// case "grade":
+					// 	ogGrade = this.state.grade;
+					// 	this.setState(
+					// 		{
+					// 			grade: ogGrade
+					// 		},
+					// 		() => {
+					// 			Swal.fire(
+					// 				"Success!",
+					// 				"Your grade has been changed!",
+					// 				"success"
+					// 			);
+					// 		}
+					// 	);
 				}
 			});
 	};
@@ -239,7 +240,7 @@ export default class Edit extends Component {
 								</button>
 							</div>
 						)}
-						<br />
+						{/* <br />
 						<label>Grade</label>
 						<br />
 						<select
@@ -286,7 +287,7 @@ export default class Edit extends Component {
 									Save
 								</button>
 							</div>
-						)}
+						)} */}
 					</form>
 				</div>
 			);
