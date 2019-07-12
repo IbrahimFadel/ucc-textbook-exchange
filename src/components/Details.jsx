@@ -32,6 +32,10 @@ export default class Details extends Component {
 
 	componentDidMount() {
 		data = this.props.location.state;
+
+		if (data.sold === true) data.sold = "Yes";
+		else if (data.sold === false) data.sold = "No";
+
 		auth.onAuthStateChanged(user => {
 			if (user) {
 				this.setState({
@@ -45,6 +49,14 @@ export default class Details extends Component {
 				});
 			}
 		});
+
+		if (data.sold === "Yes") {
+			Swal.fire(
+				"This post is archived",
+				"This post has been sold. You can only access it from your profile. You can no longer send or recieve messages, or edit this listing",
+				"info"
+			);
+		}
 
 		this.getSenders();
 
@@ -185,33 +197,79 @@ export default class Details extends Component {
 					<div id="details-container">
 						<h1>{data.title}</h1>
 
-						{this.state.uid && this.state.user ? (
-							<div id="options">
-								<Link
-									to={{
-										pathname: "/edit",
-										state: {
-											title: data.title,
-											description: data.description,
-											grade: data.grade,
-											listingKey: data.listingKey,
-											email: data.email,
-											imageName: data.imageName,
-											sold: data.sold,
-											uid: data.sellerUid,
-											email: data.email
-										}
-									}}
-									className="option-link"
-								>
-									Edit
-								</Link>
-								<a onClick={this.delete} className="option-link">
-									Delete
-								</a>
+						{this.state.uid === data.sellerUid && data.sold === "No" ? (
+							<div>
+								<div id="options">
+									<Link
+										to={{
+											pathname: "/edit",
+											state: {
+												title: data.title,
+												description: data.description,
+												grade: data.grade,
+												listingKey: data.listingKey,
+												email: data.email,
+												imageName: data.imageName,
+												sold: data.sold,
+												uid: data.sellerUid,
+												email: data.email
+											}
+										}}
+										className="option-link"
+									>
+										Edit
+									</Link>
+									<a onClick={this.delete} className="option-link">
+										Delete
+									</a>
+								</div>
+								{data.sold === "No" ? (
+									<div>
+										<div id="option-links-left">
+											<Link
+												to={{
+													pathname: "/bids",
+													state: {
+														listingKey: data.listingKey,
+														sellerUid: data.sellerUid,
+														grade: data.grade
+													}
+												}}
+												className="option-link"
+											>
+												View Bids
+											</Link>
+										</div>
+									</div>
+								) : (
+									<div />
+								)}
 							</div>
 						) : (
-							<div />
+							<div id="options">
+								{this.state.uid !== data.sellerUid || data.sold === "No" ? (
+									<div>
+										<Link
+											to={{
+												pathname: "/bid",
+												state: {
+													listingKey: data.listingKey,
+													sellerUid: data.sellerUid,
+													title: data.title,
+													description: data.description,
+													imageUrl: data.imageUrl,
+													grade: data.grade
+												}
+											}}
+											className="option-link"
+										>
+											Place Bid
+										</Link>
+									</div>
+								) : (
+									<div />
+								)}
+							</div>
 						)}
 
 						<h5>{data.description}</h5>
@@ -314,9 +372,16 @@ export default class Details extends Component {
 												/>
 											</div>
 										) : (
-											<h5 id="emptyText">
-												Wow! Much Empty. Start the Conversation?
-											</h5>
+											<div>
+												<h5 id="emptyText">
+													Wow! Much Empty. Start the Conversation?
+												</h5>
+												<MessageInput
+													sellerUid={data.sellerUid}
+													listing={data.listingKey}
+													seller={false}
+												/>
+											</div>
 										)}
 									</div>
 								)}

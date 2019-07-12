@@ -50,6 +50,7 @@ export default class Listings extends Component {
 					const listingKey = Object.keys(snapshot.val())[count];
 					const imageName = childsnapshot.val().imageName;
 					const sold = childsnapshot.val().sold;
+					const winningBid = childsnapshot.val().winningBid;
 
 					const listing = {
 						title: title,
@@ -59,7 +60,8 @@ export default class Listings extends Component {
 						uid: uid,
 						listingKey: listingKey,
 						imageName: imageName,
-						sold: sold
+						sold: sold,
+						winningBid: winningBid
 					};
 					listings.push(listing);
 					count++;
@@ -99,7 +101,8 @@ export default class Listings extends Component {
 										{listings.map((data, i) => {
 											if (this.state.searchBarValue != "") {
 												if (data.title.includes(this.state.searchBarValue)) {
-													if (!data.sold) {
+													if (!data.winningBid) {
+														// if (!data.sold) {
 														return (
 															<Card
 																key={i}
@@ -112,12 +115,13 @@ export default class Listings extends Component {
 																className="card"
 																sold={data.sold}
 																email={data.email}
+																winningBid={data.winningBid}
 															/>
 														);
 													}
 												}
 											} else {
-												if (!data.sold) {
+												if (!data.winningBid) {
 													return (
 														<Card
 															key={i}
@@ -130,6 +134,7 @@ export default class Listings extends Component {
 															className="card"
 															sold={data.sold}
 															email={data.email}
+															winningBid={data.winningBid}
 														/>
 													);
 												}
@@ -158,6 +163,7 @@ export default class Listings extends Component {
 															imageName={data.imageName}
 															className="card"
 															sold={data.sold}
+															winningBid={data.winningBid}
 														/>
 													);
 												}
@@ -173,6 +179,7 @@ export default class Listings extends Component {
 														imageName={data.imageName}
 														className="card"
 														sold={data.sold}
+														winningBid={data.winningBid}
 													/>
 												);
 											}

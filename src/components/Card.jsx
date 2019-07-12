@@ -23,6 +23,7 @@ export default class Card extends Component {
 	componentDidMount() {
 		if (this.props.imageName !== undefined) this.getImageUrl();
 		else this.setState({ response: true });
+		console.log(this.props.winningBid);
 	}
 
 	getImageUrl = () => {
@@ -74,7 +75,8 @@ export default class Card extends Component {
 										imageUrl: imageUrl,
 										imageName: this.props.imageName,
 										sold: this.props.sold,
-										email: this.props.email
+										email: this.props.email,
+										winningBid: this.props.winningBid
 									}
 								}}
 							>

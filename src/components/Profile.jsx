@@ -29,7 +29,8 @@ export default class Profile extends Component {
       name: null,
       response: false,
       currentTab: "General",
-      sales: null
+      sales: null,
+      bids: null
     };
   }
 
@@ -44,7 +45,7 @@ export default class Profile extends Component {
           },
           () => {
             this.findSales();
-            this.getName();
+            this.findBids();
           }
         );
       } else {
@@ -55,6 +56,45 @@ export default class Profile extends Component {
         });
       }
     });
+  }
+
+  findBids = () => {
+    let bids = [];
+    firebase.database().ref("/listings/").once("value").then(snapshot => {
+      snapshot.forEach(childsnapshot => {
+        const listings = Object.values(childsnapshot.val());
+        for (let i = 0; i < listings.length; i++) {
+          const listing = listings[i];
+          if (listing.bidders === undefined) return;
+          if(listing.bidders.length === 0) {
+            return this.setState({
+              bids: []
+            })
+          }
+          for (let bid of listing.bidders) {
+            if (bid.uid === this.state.uid) {
+              let newBid = {
+                amount: bid.amount,
+                uid: bid.uid,
+                winning: false
+              }
+              if (listing.winningBid !== undefined && listing.winningBid.amount === bid.amount && listing.winningBid.uid === this.state.uid) {
+                newBid.winning = true;
+              }
+              bids.push(newBid);
+            }
+          }
+        }
+        
+      })
+    }).then(() => {
+      console.log(bids);
+      this.setState({
+        bids: bids
+      }, () => {
+          this.getName();
+      })
+    })
   }
 
   findSales = () => {
@@ -99,7 +139,8 @@ export default class Profile extends Component {
           titles.push(sale.title);
           descriptions.push(sale.description);
           grades.push(sale.grade);
-          sold.push(sale.sold ? "Yes" : "No");
+          // sold.push(sale.sold ? "Yes" : "No");
+          sold.push(sale.winningBid ? "Yes" : "No");
           imageNames.push(sale.imageName);
           emails.push(sale.email);
           if (sale.imageName === undefined) {
@@ -146,6 +187,16 @@ export default class Profile extends Component {
     this.setState({
       currentTab: tab
     });
+    document.getElementsByClassName("tab-button")[0].classList.remove("down");
+    document.getElementsByClassName("tab-button")[1].classList.remove("down");
+    document.getElementsByClassName("tab-button")[2].classList.remove("down");
+    if(tab === "General") {
+      document.getElementsByClassName("tab-button")[0].classList.add("down");
+    } else if(tab === "Sales") {
+      document.getElementsByClassName("tab-button")[1].classList.add("down");
+    } else {
+      document.getElementsByClassName("tab-button")[2].classList.add("down");
+    }
   };
 
   buttonClicked = tab => {
@@ -176,7 +227,7 @@ export default class Profile extends Component {
                 Sales
               </button>
               <button
-                onClick={() => this.buttonClicked("Purchases")}
+                onClick={() => this.currentTabIs("Purchases")}
                 className="tab-button"
                 id="Purchases-tab"
               >
@@ -250,10 +301,27 @@ export default class Profile extends Component {
                 }
 
                 if (this.state.currentTab === "Purchases")
-                  return <span>Three</span>;
+                  if(this.state.bids.length === 0) {
+                    return <p>You haven't placed any bids</p>
+                  } else {
+                    return <div>
+                      <table border="1" id="sales-table">
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Grade</th>
+                            <th>Your bid</th>
+                            <th>Winner</th>
+                            <th>View Listing</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  }
               })()}
             </div>
-
+            
             <div />
           </div>
         </div>

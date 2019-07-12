@@ -93,7 +93,7 @@ export default class Edit extends Component {
 				email: data.email,
 				grade: data.grade,
 				// grade: grade,
-				imageName: data.imageName,
+				imageName: data.imageName === undefined ? null : data.imageName,
 				sold: data.sold,
 				title: title,
 				uid: data.uid

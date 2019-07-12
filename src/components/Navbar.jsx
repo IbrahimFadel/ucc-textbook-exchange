@@ -76,12 +76,6 @@ export default class Navbar extends Component {
 		document.querySelector("html").classList.toggle("noScrolling");
 	}
 
-	profileClicked = () => {
-		document
-			.getElementById("profile-dropdown")
-			.classList.toggle("dropdown-toggled");
-	};
-
 	render() {
 		return (
 			<div id="nav-container">
@@ -125,7 +119,6 @@ export default class Navbar extends Component {
 										this.state.uid
 									}
 									className="dropbtn"
-									onClick={this.profileClicked}
 								/>
 								<div className="dropdown-content">
 									<Link to="/profile">Profile</Link>

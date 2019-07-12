@@ -79,6 +79,12 @@ a.option-link {
 	color: blue;
 }
 
+div#option-links-left {
+	position: absolute;
+	left: 13vw;
+	top: 25vh;
+}
+
 a:not([href]):not([tabindex]) {
 	color: blue;
 }

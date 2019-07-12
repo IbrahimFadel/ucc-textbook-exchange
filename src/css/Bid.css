@@ -1,0 +1,28 @@
+div#imageContainer {
+	width: 90%;
+	margin: auto;
+	text-align: center;
+}
+
+img#bid-image {
+	max-width: 500px;
+}
+
+input#offer-input {
+	width: 30%;
+	/* flex-grow: 1; */
+	max-height: 50px;
+}
+
+button#placeBid-button {
+	border-radius: 5px;
+	margin: auto;
+	width: 10%;
+	margin-top: 3vh;
+	max-height: 50px;
+}
+
+div#form-container {
+	/* display: flex; */
+	/* flex-direction: row; */
+}

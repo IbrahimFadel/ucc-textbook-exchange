@@ -47,7 +47,11 @@ export default class Sell extends Component {
 		const uid = this.state.uid;
 
 		if (title == "" || description == "") {
-			alert("You have to write the title, grade, and description!");
+			Swal.fire(
+				"Uh Oh!",
+				"You have to write the title, grade, and description! Images are optional but recommended",
+				"warning"
+			);
 			return;
 		}
 
@@ -59,6 +63,7 @@ export default class Sell extends Component {
 		listing.email = email;
 		listing.uid = uid;
 		listing.sold = false;
+		listing.bidders = [];
 
 		if (imageFile != undefined || imageName != undefined) {
 			listing.imageName = imageName;
