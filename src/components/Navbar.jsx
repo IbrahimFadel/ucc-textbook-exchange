@@ -4,6 +4,7 @@ import { auth } from "./firebase/firebase";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/Navbar.css";
+import Swal from "sweetalert2";
 
 const PICTURE_SIZE = 50;
 
@@ -76,6 +77,21 @@ export default class Navbar extends Component {
 		document.querySelector("html").classList.toggle("noScrolling");
 	}
 
+	signOut = () => {
+		auth.signOut().then(
+			() => {
+				Swal.fire("Signed out!", "You've successfully signed out!", "success");
+			},
+			err => {
+				Swal.fire(
+					"Error!",
+					`Failed to sign you out: ${err.code}, ${err.message}`,
+					"error"
+				);
+			}
+		);
+	};
+
 	render() {
 		return (
 			<div id="nav-container">
@@ -122,6 +138,9 @@ export default class Navbar extends Component {
 								/>
 								<div className="dropdown-content">
 									<Link to="/profile">Profile</Link>
+								</div>
+								<div className="dropdown-content" id="content-2">
+									<a onClick={this.signOut}>Sign Out</a>
 								</div>
 							</div>
 						</div>

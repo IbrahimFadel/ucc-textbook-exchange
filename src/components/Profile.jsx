@@ -60,23 +60,36 @@ export default class Profile extends Component {
 
   findBids = () => {
     let bids = [];
+    let count = 0;
     firebase.database().ref("/listings/").once("value").then(snapshot => {
       snapshot.forEach(childsnapshot => {
         const listings = Object.values(childsnapshot.val());
         for (let i = 0; i < listings.length; i++) {
           const listing = listings[i];
+          console.log(listing.sold)
           if (listing.bidders === undefined) return;
           if(listing.bidders.length === 0) {
             return this.setState({
               bids: []
             })
           }
+          const listingKey = Object.keys(childsnapshot.val())[i];
           for (let bid of listing.bidders) {
             if (bid.uid === this.state.uid) {
               let newBid = {
                 amount: bid.amount,
                 uid: bid.uid,
-                winning: false
+                winning: false,
+                title: listing.title,
+                description: listing.description,
+                grade: listing.grade,
+                listingKey: listingKey,
+                sellerUid: listing.uid,
+                imageUrl: listing.imageName === undefined ? undefined : listing.imageName,
+                imageName: listing.imageName === undefined ? undefined : listing.imageName,
+                sold: listing.sold,
+                email: listing.email,
+                winningBid: listing.winningBid
               }
               if (listing.winningBid !== undefined && listing.winningBid.amount === bid.amount && listing.winningBid.uid === this.state.uid) {
                 newBid.winning = true;
@@ -88,7 +101,6 @@ export default class Profile extends Component {
         
       })
     }).then(() => {
-      console.log(bids);
       this.setState({
         bids: bids
       }, () => {
@@ -231,7 +243,7 @@ export default class Profile extends Component {
                 className="tab-button"
                 id="Purchases-tab"
               >
-                Purchases
+                Bids
               </button>
             </div>
 
@@ -316,6 +328,36 @@ export default class Profile extends Component {
                             <th>View Listing</th>
                           </tr>
                         </thead>
+                        {this.state.bids.map((bid, i) => {
+                          return (
+                            <tbody key={i}>
+                              <tr>
+                                <td>{bid.title}</td>
+                                <td>{bid.description}</td>
+                                <td>{bid.grade}</td>
+                                <td>{bid.amount}</td>
+                                <td>{bid.winning.toString() === "true" ? "Yes" : "No"}</td>
+                                <td>
+                                  <Link to={{
+                                    pathname: `/details/${bid.listingKey}`,
+                                    state: {
+                                      title: bid.title,
+                                      grade: bid.grade,
+                                      description: bid.description,
+                                      sellerUid: bid.sellerUid,
+                                      listingKey: bid.listingKey,
+                                      imageUrl: bid.imageUrl,
+                                      imageName: bid.imageName,
+                                      sold: bid.sold === true ? "Yes" : "No",
+                                      email: bid.email,
+                                      winningBid: bid.winningBid
+                                    }
+                                  }}>View</Link>
+                                </td>
+                              </tr>
+                            </tbody>
+                          )
+                        })}
                       </table>
                     </div>
                   }
